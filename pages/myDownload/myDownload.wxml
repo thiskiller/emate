@@ -1,0 +1,43 @@
+<!--pages/myDownload/myDownload.wxml-->
+<block  wx:for="{{dataList}}" wx:key="{{index}}">
+    <view class="itemContainer">    
+      <view class="itemRoot" style="display:flex">
+        <view style="display: flex">
+          <view class="userImage">
+            <image class="userImage1" src='{{item.userInfo.avatarUrl}}'></image>
+          </view>
+          <view class="userName_time_school">
+            <view>
+              <view class="userName">{{item.userInfo.nickName}}</view>
+            </view>
+            <view class="detail"> 
+              <text class="time">{{item.data}}</text>
+              <text class="school">发布于{{item.place}}</text>
+            </view>
+          </view>
+        </view>
+        <view style="display: flex">
+          <!-- <image data-item="{{item}}" class="delete" bindtap="delete" src="/pages/images/delete.png"></image>      以上是待添加地方 删除 -->
+          <view style="diplay:flex;flex-direction:column" bindtap="recover" data-item="{{item}}">
+            <image style="height:40rpx;width:40rpx" src='/pages/images/recover.png'></image>
+            <text style="font-size:6pt">重新发布</text>
+          </view>
+          <view style="diplay:flex;flex-direction:column" bindtap="delete" data-id="{{item._id}}">
+            <image style="height:40rpx;width:40rpx" src='/pages/images/delete1.png'></image>
+            <text style="font-size:6pt">删除</text>
+          </view>
+        </view>
+      </view>
+      <view class="message">
+        <view class="txt">
+          <view style="color:yellow;font-size:20px;margin-bottom:3px">售价：￥{{item.money}}</view>
+          <text class="desc" selectable="true">{{item.desc}}</text>
+        </view>
+        <view class="imgRoot">
+          <block class="imgList" wx:for="{{item.fileIDs}}" wx:for-item="itemImg" wx:key="{{index}}">
+            <image class="img" src='{{itemImg}}' mode="aspectFill" data-img='{{[itemImg,item.fileIDs]}}' bindtap="previewImg"></image>
+          </block>
+        </view>
+      </view>
+    </view>
+  </block>

@@ -1,0 +1,215 @@
+.container{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  background: #f5f6fa;
+}
+
+.searchContainer{
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  margin-top: 14px;
+  margin: 8px;
+}
+.search{
+  border: 1px solid black;
+  margin-left: 24rpx;
+  padding-left: 10rpx;
+  width: 86%;
+  height: 28px;
+  border-radius: 10px;
+}
+/* .confirmSearch{
+  text-align:center;
+  margin-top: 0px;
+  padding-top: 0rpx;
+  font-size: 26rpx;
+} */
+
+swiper{
+  margin: 10px 0px 20px 20px;
+}
+.swiperImage{
+  border-radius: 10px;
+  height: 150px;
+}
+.navbar{
+  width: 100%;
+  height: 70rpx;
+  white-space: nowrap;
+  display: felx;
+  box-sizing: border-box;
+  border-bottom: 1rox solid #eee;
+  background: #fff;
+  align-items: center;
+  /* position: fixed;
+  left: 0px;
+  top: 0px; */
+}
+.nav-item{
+  padding-left: 25rpx;
+  padding-right: 25rpx;
+  height: 100%;
+  display: inline-block;
+  font-size: 32rpx;
+}
+.nav-text{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 4rpx;
+  box-sizing: border-box;
+}
+.tab-on{
+  color: #61ada3;
+  font-size: 44rpx !important;
+  font-weight: 600;
+  border-bottom: 4rpx solid #61ada3 !important;
+}
+.itemContainer{
+  border-radius: 5px;
+  margin: 0px 0px 5px 5px;
+  background: #fff;
+ 
+  /* position: relative; */
+}
+.itemRoot {
+  width: 100%;
+  height: 42px;
+  display:flex;
+  margin-top: 0px;
+  flex-direction: row;
+  justify-content: space-between
+  
+}
+.userImage{
+  /* position: relative; */
+  margin: 5px 5px;
+   width: 40px;
+  height: 40px;
+}
+
+.userImage1{
+ /* position: absolute; */
+ border-radius: 50%;
+  width: 40px;
+  height: 40px;
+ 
+}
+.userName{
+  margin-top: 5px;
+  margin-left: 5px;
+  color: #647f9b;
+}
+
+.delete{
+  margin: 20rpx;
+  margin-right: 30rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.imgRoot {
+  margin-left: 10rpx;
+}
+
+.imgList {
+  display: inline-block;
+ 
+}
+
+.img {
+
+  margin: 5rpx;
+  border-radius: 14rpx;
+}
+
+.txt{
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-bottom: 10rpx;
+}
+
+.money{
+  color:rgb(243, 243, 107);
+  font-size:20px;
+  margin-bottom:3px
+}
+.desc{
+  direction: flex;
+  flex-wrap: wrap;
+}
+.message{
+  line-height: 22px;
+  display: flex;
+  flex-direction: column;
+}
+.school{
+  font-size: 6pt;
+}
+
+.detail{
+  margin-left: 10rpx;
+}
+
+.time{
+  font-size: 7pt;
+  margin-right: 10rpx;
+}
+
+.userName_time_school{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.replay{
+  width: 150rpx;
+  height: 100rpx;
+}
+
+
+
+/*  */
+/* 点赞图标 */
+.doWell_comment{
+  width: 100%;
+  border-top: 1px solid #f0ffff;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+}
+ 
+.comment1{
+  width: 24px;
+  height: 24px;
+  margin-top: 4px;
+  margin-left: 50px;
+  margin-right: 90px;
+  margin-bottom: 5px;
+}
+
+.comment2{
+  width: 24px;
+  height: 24px;
+  margin-top: 4px;
+  margin-right: 90px;
+}
+
+.comment3{
+  width: 24px;
+  height: 24px;
+  margin-top: 4px;
+}
+
+/* //最下方下拉提示 */
+.attention{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 10px;
+  color: #b9c5cb;
+}

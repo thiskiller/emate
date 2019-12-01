@@ -1,0 +1,158 @@
+.container{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  background: #f5f6fa;
+}
+
+.searchContainer{
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  margin-top: 14px;
+  margin: 8px;
+}
+.search{
+  border: 1px solid black;
+  margin-left: 10px;
+  padding-left: 5rpx;
+  width: 70%;
+  height: 28px;
+  border-radius: 10px;
+}
+.confirmSearch{
+  text-align:center;
+  margin-top: 0px;
+  padding-top: 0rpx;
+  font-size: 26rpx;
+}
+.itemContainer{
+  border-radius: 5px;
+  margin: 10px 5px;
+  background:#ffffff;
+  /* position: relative; */
+}
+.itemRoot {
+  width: 100%;
+  height: 42px;
+  display:flex;
+  margin-top: 10px;
+  flex-direction: row;
+  
+}
+.userImage{
+  /* position: relative; */
+  margin: 5px 5px;
+   width: 40px;
+  height: 40px;
+}
+
+.userImage1{
+ /* position: absolute; */
+ border-radius: 50%;
+  width: 40px;
+  height: 40px;
+ 
+}
+.userName{
+  margin-top: 5px;
+  margin-left: 5px;
+  color: #647f9b;
+}
+
+.imgRoot {
+  margin-left: 10rpx;
+}
+
+.imgList {
+  display: inline-block;
+ 
+}
+
+.img {
+
+  margin: 5rpx;
+  border-radius: 10px;
+  width: 225rpx;
+  height: 250rpx;
+}
+
+.txt{
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-bottom: 10rpx;
+}
+
+.message{
+  line-height: 22px;
+  display: flex;
+  flex-direction: column;
+}
+.school{
+  font-size: 6pt;
+}
+
+.detail{
+  margin-left: 10rpx;
+}
+
+.time{
+  font-size: 7pt;
+  margin-right: 10rpx;
+}
+
+.userName_time_school{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.replay{
+  width: 150rpx;
+  height: 100rpx;
+}
+
+
+
+/*  */
+/* 点赞图标 */
+.doWell_comment{
+  width: 100%;
+  border-top: 1px solid #f0ffff;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+}
+ 
+.comment1{
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  margin-left: 50px;
+  margin-right: 90px;
+  margin-bottom: 5px;
+}
+
+.comment2{
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  margin-right: 90px;
+}
+
+.comment3{
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+}
+
+
+/* //最下方下拉提示 */
+.attention{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 10px;
+  color: blue;
+}

@@ -1,0 +1,7 @@
+<!--pages/collection/collection.wxml-->
+<block class="container" wx:for="{{dataList}}"  wx:key='{{index}}'>
+  <view class="itemContainer" style="display:flex" bindtap="comment" data-item='{{item}}'>
+    <image src='{{item.userInfo.avatarUrl}}' class="image" style="height:100rpx;width:100rpx;margin:10rpx"></image>
+    <text style="height:100rpx;width:600rpx;font-family:KaiTi;font-size:10pt">{{item.desc}}</text>
+  </view>
+</block>

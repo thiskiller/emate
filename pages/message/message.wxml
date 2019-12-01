@@ -1,0 +1,19 @@
+<view class="fonter" bindtap="change">
+  <button class="message" style="border-bottom:{{tag?'2px #61ada3 solid':''}}">消息</button>
+  <button class="comment" style="border-bottom:{{!tag?'2px #61ada3 solid':''}}">评论</button>
+</view>
+<scroll-view class="container">
+  <view wx:for='{{chats}}' wx:key='{{index}}' >
+      <view class='itemContainer' bindtap="chat" data-item="{{item}}">
+        <image class="imageUrl" src="{{item.userInfo.avatarUrl}}"></image>
+          <view style="display:flex;flex-direction:column">
+            <view >
+              <text class="name-time">{{item.userInfo.nickName}}</text>
+              <text class="name-time">{{context[index].createTime}}</text>
+              <text class="name-time" style="margin-left:10px;color:red">{{time[index]}}</text>
+            </view>
+            <text class="text">{{context[index].context}}</text>
+          </view>
+      </view>
+  </view>
+</scroll-view>

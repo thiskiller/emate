@@ -1,0 +1,40 @@
+
+<scroll-view class="body"  scroll-y class="chatroom" style="height:635px"  bindscrolltoupper="onScrollToUpper" >
+  <view wx:for="{{chats}}" wx:key="{{index}}" >
+    <view class='item' wx:if='{{openid===item._openid}}'>
+      <view class='itemRoot1'>
+        <view class="userImage">
+          <image class="userImage1" data-openid="{{item._openid}}" bindtap="getUser" src="{{item.userInfo.avatarUrl}}" mode="scaleToFill" ></image> 
+        </view>
+        <view class="userName_time">
+          <view class="userName">{{item.userInfo.nickName}}</view>
+          <text class="time">{{item.createTime}}</text>
+        </view>
+      </view>
+      <view class="text">
+        <text class='text1'>{{item.context}}</text>
+      </view>
+    </view>
+    <view class='item' wx:else>
+      <view class='itemRoot2'>
+        <view class="userImage">
+          <image class="userImage1" data-openid="{{item._openid}}" bindtap="getUser" src="{{item.userInfo.avatarUrl}}" mode="scaleToFill" ></image> 
+        </view>
+        <view class="userName_time">
+          <view class="userName">{{item.userInfo.nickName}}</view>
+          <text class="time">{{item.creatTime}}</text>
+        </view>
+      </view>
+      <view class="text">
+        <text class='text2'>{{item.context}}</text>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+<view class='ask'>
+  <input class='input' type='text' bindinput="context" confirm-type="send" bindconfirm="onConfirmSendText" cursor-spacing="20" value="{{context}}"></input>
+  <button class='button' bindtap="send">发送</button>
+</view>
+  
+

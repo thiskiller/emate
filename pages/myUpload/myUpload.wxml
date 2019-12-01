@@ -1,0 +1,8 @@
+<!--pages/myUpload/myUpload.wxml-->
+<block wx:for="{{dataList}}">
+  <view style="display:flex;height:110rpx" bindtap="comment" data-item='{{item}}'>
+    <image src='{{item.userInfo.avatarUrl}}' style="height:100rpx;width:100rpx;margin:10rpx"></image>
+    <text style="height:100rpx;width:600rpx;font-family:KaiTi;font-size:10pt">{{item.desc}}</text>
+  </view>
+</block>
+

@@ -1,0 +1,35 @@
+<view class="container"> 
+  <block class="container" wx:for="{{dataList}}" wx:key="{{index}}">
+    <view class="itemContainer">    
+      <view class="itemRoot">
+        <view class="userImage">
+          <image class="userImage1" src='{{item.userInfo.avatarUrl}}'></image>
+        </view>
+        <view class="userName_time_school">
+            <view>
+              <view class="userName">{{item.userInfo.nickName}}</view>
+            </view>
+            <view class="detail"> 
+              <text class="time">{{item.data}}</text>
+              <text class="school">发布于{{item.schoolName}}</text>
+            </view>
+        </view>
+      </view>
+      <view class="message">
+        <view class="txt">
+          <text class="desc" selectable="true">{{item.desc}}</text>
+        </view>
+        <view class="imgRoot">
+          <block class="imgList" wx:for="{{item.fileIDs}}" wx:for-item="itemImg" wx:key="{{index}}">
+            <image class="img" src='{{itemImg}}' mode="aspectFill" data-img='{{[itemImg,item.fileIDs]}}' bindtap="previewImg"></image>
+          </block>
+        </view>
+      </view>
+     <view class="doWell_comment">   
+        <image  class="comment1" bindtap="chat"   data-item="{{item}}" src='/pages/images/sixin.png'></image>
+        <image  class="comment2" bindtap="comment"   data-item="{{item}}" src='/pages/images/message.png'></image>
+        <image class="comment3"  mode="aspectFill" bindtap="doWell" data-index="{{item._id}}"  src="{{!list_doWell[item._id]?'/pages/images/doWell.png':'/pages/images/doWellChange.png'}}"></image>
+    </view>
+    </view>
+  </block>
+</view>

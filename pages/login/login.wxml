@@ -1,0 +1,3 @@
+<!--pages/login/login.wxml-->
+<text>同学您好，需要获取您的头像、昵称等信息，但我们郑重承诺，不会非法使用和传播您的信息</text>
+<button type="primary" bindgetuserinfo="getUserInfo" open-type="getUserInfo">登录</button>

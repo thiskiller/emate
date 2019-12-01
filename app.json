@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/message/message",
+    "pages/onload/onload",
+    "pages/search/search",
+    "pages/comment/comment",
+    "pages/chatroom/chatroom",
+    "pages/host/host",
+    "pages/detail/detail",
+    "pages/myUpload/myUpload",
+    "pages/myCollection/myCollection",
+    "pages/myDownload/myDownload",
+    "pages/login/login",
+    "pages/user/user"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#68c2ac",
+    "navigationBarTitleText": "淘小淘",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "backgroundColor": "#ffffff",
+    "selectedColor": "#61ada3",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "主页",
+        "iconPath": "/pages/images/index.png",
+        "selectedIconPath": "pages/images/indexChange.png"
+      },
+      {
+        "pagePath": "pages/onload/onload",
+        "text": "发布",
+        "iconPath": "/pages/images/onload.png",
+        "selectedIconPath": "pages/images/onloadChange.png"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "text": "消息",
+        "iconPath": "/pages/images/message1.png",
+        "selectedIconPath": "pages/images/message1Change.png"
+      },
+      {
+        "pagePath": "pages/host/host",
+        "text": "个人中心",
+        "iconPath": "/pages/images/host.png",
+        "selectedIconPath": "pages/images/hostChange.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

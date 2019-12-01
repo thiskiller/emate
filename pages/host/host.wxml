@@ -1,0 +1,27 @@
+  <view class="userInfo">
+      <image class='userImage' src='{{userInfo.avatarUrl}}'></image>
+      <view class='nickName'>{{userInfo.nickName}}</view>
+  </view>
+  <view class='detail'>
+    <view class="collection" bindtap="handleCollection">
+      <text class="text">我的收藏</text>
+      <image class="image" src='/pages/images/enter.png'></image>
+    </view>
+    <view class="collection" bindtap="handleUpload">
+      <text class="text">我的发布</text>
+      <image class="image" src='/pages/images/enter.png'></image>
+    </view>
+    <view class="collection" bindtap="handlePull">
+      <text class="text">下架商品</text>
+      <image class="image" src='/pages/images/enter.png'></image>
+    </view>
+    <view class="collection" bindtap="handleIdeas">
+      <text class="text">意见反馈</text>
+      <image class="image" src='/pages/images/enter.png'></image>
+    </view>
+    <view class="collection" bindtap="handleDetail">
+      <text class="text">版本信息</text>
+      <image class="image" src='/pages/images/enter.png'></image>
+    </view>
+  </view>
+   

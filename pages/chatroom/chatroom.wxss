@@ -1,0 +1,99 @@
+.chatroom{
+  width: 100%;
+  height: 94%;
+  background: #f5f6fa
+}
+
+.itemRoot1{
+  width: 100%;
+  height: 42px;
+  display:flex;
+  margin-top: 10px;
+  flex-direction: row-reverse;
+}
+
+.itemRoot2{
+  width: 100%;
+  height: 42px;
+  display:flex;
+  margin-top: 10px;
+  flex-direction: row; 
+}
+.userImage{
+  /* position: relative; */
+  margin: 5px 5px;
+   width: 25px;
+  height: 25px;
+}
+
+.userImage1{
+ /* position: absolute; */
+  width: 25px;
+  height: 25px;
+ 
+}
+.userName{
+  margin-top: 5px;
+  margin-left: 5px;
+  font-size: 10pt;
+  color: #647f9b;
+}
+
+.time{
+  font-size: 5pt;
+  margin-top: 3px;
+  margin-right: 10rpx;
+}
+
+.userName_time{
+  display: flex;
+  flex-direction: column;
+}
+
+.text1{
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 5px;
+  background: #f5f6fa;
+}
+
+.text2{
+  display: flex;
+  flex-direction: row;
+  margin: 5px;
+  background: #61ada3;
+}
+
+.ask {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 100rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+}
+ 
+.input {
+  width: 600rpx;
+  height: 60rpx;
+  border: 1rpx solid #f1f1f1;
+  margin: 12rpx 0rpx 12rpx 20rpx;
+  border-radius: 30rpx;
+  background: #f1f5fc;
+  font-size: 30rpx;
+  text-align: center;
+}
+ 
+.button {
+  background: #647f96;
+  color: white;
+  border-radius: 30rpx;
+  font-size: 30rpx;
+  width: 130rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 12rpx 20rpx;
+}

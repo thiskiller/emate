@@ -1,0 +1,88 @@
+.itemContainer{
+  border-radius: 5px;
+  margin: 10px 10px 5px 5px;
+  background: #fff;
+  border: 1px solid #647f9b;
+  /* position: relative; */
+}
+.itemRoot {
+  width: 100%;
+  height: 42px;
+  display:flex;
+  margin-top: 10px;
+  flex-direction: row;
+  justify-content: space-between
+  
+}
+.userImage{
+  /* position: relative; */
+  margin: 5px 5px;
+   width: 40px;
+  height: 40px;
+}
+
+.userImage1{
+ /* position: absolute; */
+ border-radius: 50%;
+  width: 40px;
+  height: 40px;
+ 
+}
+.userName{
+  margin-top: 5px;
+  margin-left: 5px;
+  color: #647f9b;
+}
+
+.delete{
+  margin: 20rpx;
+  margin-right: 30rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.imgRoot {
+  margin-left: 10rpx;
+}
+
+.imgList {
+  display: inline-block;
+ 
+}
+
+.img {
+
+  margin: 5rpx;
+  border-radius: 10px;
+  width: 225rpx;
+  height: 250rpx;
+}
+
+.txt{
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-bottom: 10rpx;
+}
+
+.message{
+  line-height: 22px;
+  display: flex;
+  flex-direction: column;
+}
+.school{
+  font-size: 6pt;
+}
+
+.detail{
+  margin-left: 10rpx;
+}
+
+.time{
+  font-size: 7pt;
+  margin-right: 10rpx;
+}
+
+.userName_time_school{
+  display: flex;
+  flex-direction: column;
+}
