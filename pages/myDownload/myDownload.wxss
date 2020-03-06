@@ -2,7 +2,8 @@
   border-radius: 5px;
   margin: 10px 10px 5px 5px;
   background: #fff;
-  border: 1px solid #647f9b;
+  border-top: 1px solid #a9abafc0;
+  border-bottom: 1px solid #a9abafc0;
   /* position: relative; */
 }
 .itemRoot {
@@ -53,7 +54,7 @@
 .img {
 
   margin: 5rpx;
-  border-radius: 10px;
+  border-radius: 4px;
   width: 225rpx;
   height: 250rpx;
 }

@@ -1,8 +1,30 @@
-<!--pages/user/user.wxml-->
-<view>用户昵称：</view>
-<block wx:for="{{dataList}}" wx:key='{{index}}'>
-  <view style="display:flex" bindtap="comment" data-item='{{item}}'>
-    <image src='{{item.userInfo.avatarUrl}}' style="height:100rpx;width:100rpx;margin:10rpx"></image>
-    <text style="height:100rpx;width:500rpx;font-family:KaiTi;font-size:10pt">{{item.desc}}</text>
+<view class="text">昵称：{{user.userInfo.nickName}}</view>
+<!-- 性别信息 -->
+<view class="text" wx:if='{{user.userInfo.gender==1}}'>性别：男</view>
+<view class="text" wx:elif='{{user.userInfo.gender==0}}'>性别：女</view>
+<view class="text" wx:else>性别：未知</view>
+<view  class="text">成长点：{{time}}</view>
+<view  class="text">
+  <text selectable="true"  wx:if='{{school!=""}}'>学校：{{school}}</text>
+</view>
+<view  class="text">
+  <text selectable="true"  wx:if='{{QQ!=""}}'>QQ号码：{{QQ}}</text>
+</view>
+<view  class="text">
+  <text selectable="true" wx:if='{{weixin!=""}}'>微信号码：{{weixin}}</text>
+</view>
+<view  class="text">
+  <text selectable="true"  wx:if='{{display!=""}}'>附加信息：{{display}}</text>
+</view>
+<text style="font-size:15px;margin:5px;color:#647f9b">用户发布：</text>
+<block class="container" wx:for="{{dataList}}"  wx:key='index' >
+  <view class="itemContainer" style="display:flex;background:#FFF" bindtap="comment" data-item='{{item}}' wx:if='{{item.place!=""}}'>
+    <image mode="aspectFill" src='{{item.fileIDs[0]}}' class="image" style="height:110rpx;width:100rpx;margin:10rpx"></image>
+    <view style="display:flex; flex-direction: column">
+      <view style="margin: 6px;">
+         <text style="color: #647f9b;font-weight: 600;padding: 5rpx;margin: 3px 3px 0 3px;border-radius: 3px;font-size:12px;margin-left:0rpx">￥{{item.money}}</text>
+      </view>
+      <text style="overflow:hidden;text-overflow:ellipsis;width:600rpx;height:36rpx;font-family:KaiTi;font-size:10pt; margin-left:5px">{{item.desc}}</text>
+    </view>
   </view>
 </block>

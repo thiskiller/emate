@@ -12,13 +12,19 @@
     "pages/myCollection/myCollection",
     "pages/myDownload/myDownload",
     "pages/login/login",
-    "pages/user/user"
+    "pages/user/user",
+    "pages/zero/zero",
+    "pages/lost/lost",
+    "pages/together/together",
+    "pages/reviseUserDetail/reviseUserDetail",
+    "pages/Mytip/Mytip"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#68c2ac",
-    "navigationBarTitleText": "淘小淘",
-    "navigationBarTextStyle": "white"
+    "navigationBarTitleText": "emate",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f5f6fa"
   },
   "tabBar": {
     "backgroundColor": "#ffffff",
@@ -50,5 +56,5 @@
       }
     ]
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap44.json"
 }

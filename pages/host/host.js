@@ -15,19 +15,7 @@ Page({
     let chatroom = db.collection('chatroom')
     let _ = db.command
     let that = this
-    chatroom.where({
-      groupId2: that.data.userInfo._openid
-    }).orderBy('createTime', 'desc').get({
-      success(res) {
-        var list = []
-        for (var i = 0; i < res.data.length; i++) {
-          list[res.data.groupId1] = res.data[i]
-        }
-        that.setData({
-          chats: list
-        })
-      }
-    })
+  
   },
 
   handleCollection: function(){
@@ -46,27 +34,92 @@ Page({
       url: '/pages/myDownload/myDownload',
     })
   },
-  handleIdeas: function () {
-    wx.navigateTo({
-      url: '/components/im/im',
-    })
-  },
   handleDetail: function(){
     wx.navigateTo({
       url: '/pages/detail/detail',
     })
   },
+  handleTip: function () {
+    wx.navigateTo({
+      url: '/pages/Mytip/Mytip',
+    })
+  },
+  getUserInfo(e) {
+    let that = this;
+    const db = wx.cloud.database();
+    const _ = db.command;//当是新用户是将其信息插入到user中
+    console.log(e)
+    wx.getSetting({
+      success(e){
+          wx.getUserInfo({
+            success(res1) {
+              app.globalData.userInfo = res1.userInfo;
+              that.setData({
+                userInfo: res1.userInfo
+              }) 
+              wx.cloud.callFunction({
+                name: 'getopenid',
+                success(e) {
+                  let openid = e.result.openid;
+                  db.collection('user').where({
+                    _openid: openid
+                  }).get({
+                    success(res) {
+                      if (res.data.length == 0) {
+                        db.collection('user').add({
+                          data: {
+                            userInfo: res1.userInfo,
+                            createTime: app.getNowFormatDate(),
+                            time: new Date().getTime()
+
+                          },
+                          success(e) {
+                            console.log(e)
+                          }
+                        })
+                      }
+                    }
+                  })
+                }
+              })
+            }
+          })
+      
+      }
+    })
+    
+
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let that = this;
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.getUserInfo({
+            success: res => {
+              that.setData({
+             userInfo : res.userInfo
+              })
+            }
+          })
+        }
+      }
+    })
     this.setData({
       userInfo: app.globalData.userInfo
     })
     this.init()
 
   },
-
+  revise: function(){
+    wx.navigateTo({
+      url: '/pages/reviseUserDetail/reviseUserDetail',
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

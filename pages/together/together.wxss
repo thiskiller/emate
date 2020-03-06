@@ -1,0 +1,8 @@
+/* pages/zero/zero.wxss */
+.attention{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 10px;
+  color: #b9c5cb;
+}

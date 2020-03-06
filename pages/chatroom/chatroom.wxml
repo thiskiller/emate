@@ -1,18 +1,14 @@
-
-<scroll-view class="body"  scroll-y class="chatroom" style="height:635px"  bindscrolltoupper="onScrollToUpper" >
-  <view wx:for="{{chats}}" wx:key="{{index}}" >
+<scroll-view class="body"  scroll-y class="chatroom" style="height:1360rpx"  bindscrolltoupper="onScrollToUpper" >
+  <view wx:for="{{chats}}" wx:key="{{chats.length-index}}" >
     <view class='item' wx:if='{{openid===item._openid}}'>
       <view class='itemRoot1'>
         <view class="userImage">
           <image class="userImage1" data-openid="{{item._openid}}" bindtap="getUser" src="{{item.userInfo.avatarUrl}}" mode="scaleToFill" ></image> 
         </view>
         <view class="userName_time">
-          <view class="userName">{{item.userInfo.nickName}}</view>
-          <text class="time">{{item.createTime}}</text>
+          <text class="time1">{{item.createTime}}</text>
+          <text class='text1' selectable="true">{{item.context}}</text>
         </view>
-      </view>
-      <view class="text">
-        <text class='text1'>{{item.context}}</text>
       </view>
     </view>
     <view class='item' wx:else>
@@ -21,13 +17,11 @@
           <image class="userImage1" data-openid="{{item._openid}}" bindtap="getUser" src="{{item.userInfo.avatarUrl}}" mode="scaleToFill" ></image> 
         </view>
         <view class="userName_time">
-          <view class="userName">{{item.userInfo.nickName}}</view>
-          <text class="time">{{item.creatTime}}</text>
+          <text class="time2">{{item.createTime}}</text>
+          <text class='text2' selectable="true">{{item.context}}</text>
         </view>
       </view>
-      <view class="text">
-        <text class='text2'>{{item.context}}</text>
-      </view>
+
     </view>
   </view>
 </scroll-view>

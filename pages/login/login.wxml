@@ -1,3 +1,9 @@
 <!--pages/login/login.wxml-->
-<text>同学您好，需要获取您的头像、昵称等信息，但我们郑重承诺，不会非法使用和传播您的信息</text>
-<button type="primary" bindgetuserinfo="getUserInfo" open-type="getUserInfo">登录</button>
+<view class="container">
+  <view>同学您好</view>
+  <view>为保证您能正常使用小程序</view>
+  <view>需要获取您的头像、昵称等信息</view>
+  <view>我们郑重承诺:</view>
+  <view>不会非法使用和传播您的信息</view>
+</view>
+<button type="primary" bindgetuserinfo="getUserInfo" open-type="getUserInfo">确认登录</button>

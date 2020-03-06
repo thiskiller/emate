@@ -36,6 +36,9 @@
   width: 32rpx;
   height: 32rpx;
 }
+.picker{
+  margin-top:20rpx; 
+}
 .classes{
   border: 1px dashed rgba(124, 121, 121, 0.178);
   background: rgb(223, 220, 220);

@@ -5,7 +5,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": false,
 		"postcss": true,
 		"minified": true,
@@ -23,7 +23,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.9.1",
-	"appid": "wx73907f3d858a9bde",
+	"appid": "wx27e251aeeabdb208",
 	"projectname": "%E6%B7%98%E5%B0%8F%E6%B7%98%E6%B5%8B%E8%AF%9501%E7%89%88",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -130,6 +130,13 @@
 					"id": -1,
 					"name": "pages/myDownload/myDownload",
 					"pathName": "pages/myDownload/myDownload",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/zero/zero",
+					"pathName": "pages/zero/zero",
 					"scene": null
 				}
 			]

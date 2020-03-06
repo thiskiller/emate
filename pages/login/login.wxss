@@ -1,1 +1,13 @@
 /* pages/login/login.wxss */
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 400rpx;
+}
+view{
+  margin: 20rpx;
+}
+button{
+  width: 440rpx;
+}

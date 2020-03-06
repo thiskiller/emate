@@ -18,7 +18,7 @@ Page({
     console.log(app.globalData.openid)
     wx.cloud.database().collection('collection').where({
       _openid: app.globalData.openid,
-    }).get({
+    }).orderBy('createTime', 'desc').get({
       success(e) {
         console.log(e)
         that.setData({
@@ -31,6 +31,7 @@ Page({
           }).get({
             success(res) {
               console.log(that.data.dataList, res)
+              if (res.data.length!=0)
               that.setData({
                 dataList: that.data.dataList.concat(res.data[0])
               })

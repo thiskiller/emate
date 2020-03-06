@@ -7,7 +7,6 @@
 }
 .itemContainer{
   padding-top: 5rpx;
-  height: 100rpx;
   display: flex;
   flex-direction: row;
   background: #ffffff;
@@ -22,13 +21,22 @@
 }
 
 .name-time{
-  font-size: 13pt;
+  font-size: 10pt;
+  margin-left: 10rpx;
+  color: #61ada3;
+  margin-bottom: 14px;
+}
+.name-time1{
+  font-size: 10pt;
   margin-left: 10rpx;
   color: #61ada3;
   margin-bottom: 14px;
 }
 .text{
   width: 600rpx;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  height:40rpx;
   font-size: 10pt;
   margin: 6rpx 10rpx;
   color: #9a9b9af6

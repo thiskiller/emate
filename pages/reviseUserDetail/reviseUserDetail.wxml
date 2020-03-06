@@ -1,0 +1,19 @@
+<view >
+  <view style="display:flex; ">
+    <view style="margin-top:15px;margin-left:5px">学校：</view>
+    <input  placeholder="请输入学校信息" bindinput="inSchool" value="{{school}}"></input>
+  </view>
+  <view style="display:flex;">
+    <view style="margin-top:15px;margin-left:5px">QQ号码：</view>
+    <input  placeholder="请输入QQ号码" bindinput="inQQ" value="{{QQ}}"></input>
+  </view>
+  <view style="display:flex;">
+    <view style="margin-top:15px;margin-left:5px">微信号码：</view>
+    <input  placeholder="请输入微信号码" bindinput="inWeixin"  value="{{weixin}}"></input>
+  </view>
+  <view style="display:flex;">
+    <view style="margin-top:15px;margin-left:5px">附加信息：</view>
+    <input  placeholder="请输入附加信息" bindinput="inDisplay" value="{{display}}"></input>
+  </view>
+  <button type="primary" bindtap="submit">提交</button>
+</view>

@@ -5,34 +5,103 @@
   flex-direction: column;
   align-items: center;
 }
-
-.userImage{
+.userImage1{
+  margin-right: 5px;
+  width: 230rpx;
+  height: 230rpx;
+  border-radius: 50%;
+  margin: 10rpx 0;
+}
+.userImage2{
   margin-right: 5px;
   width: 200rpx;
   height: 200rpx;
+  margin-top: 20rpx;
+  margin-bottom: 0px;
   border-radius: 50%;
-  margin: 10rpx 0;
+
 }
 
 .nickName{
   font-size: 16pt;
   margin: 10rpx 0;
+  margin-bottom: 30rpx;
 }
 .collection{
   margin: 10rpx;
   display: flex;
+  background: #fff;
+  /* flex-direction: column; */
+  height: 70rpx;
+  align-items: center;
+  border-bottom: 1px solid blanchedalmond;
+  padding-bottom: 14rpx;
+}
+.collection text{
+  margin-bottom: 2rpx;
+  margin-left: 10rpx;
+  font-size: 16pt
+}
+.img{
+   height: 78rpx;
+   width: 78rpx;
+   margin-left: 40rpx;
+   margin-right: 10rpx;
+}
+.image{
+   height: 50rpx;
+   width: 50rpx;
+   margin-top: 16rpx;
+   margin-left: 300rpx;
+}
+.collection1{
+  margin: 10rpx;
+  display: flex;
+  background: #fff;
+  /* flex-direction: column; */
+  height: 90rpx;
+  border-bottom: 1px solid blanchedalmond;
+  padding-bottom: 14rpx;
+}
+.img1{
+   height: 80rpx;
+   width: 80rpx;
+   margin-left: 14rpx;
+   margin-right: 10rpx;
+}
+.image1{
+   height: 50rpx;
+   width: 50rpx;
+   margin-top: 16rpx;
+   margin-left: 256rpx;
+}
+
+.kefuContainer{
+  margin: 10rpx;
+  display: flex;
+  background: #fff;
   /* flex-direction: column; */
   justify-content: space-between;
   height: 70rpx;
   border-bottom: 1px solid blanchedalmond;
+  align-items: center;
+   
 }
-.collection text{
-  margin-left: 30rpx;
-  font-size: 15pt
+.kefu{
+   font-size: 16pt;
+   border-bottom: 1px solid blanchedalmond;
+   margin-left: 6rpx;
 }
-.image{
-   margin-top: 10rpx;
-   height: 40rpx;
-   width: 40rpx;
-   margin-right: 50rpx;
+
+button::after { border: none; }
+button{
+  display: flex;align-items: center
+}
+
+.writeUser{
+  width: 80rpx;
+  height: 80rpx;
+  position: absolute;
+  top: 16rpx;
+  right: 20rpx;
 }

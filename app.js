@@ -26,15 +26,67 @@ App({
       " " + strHour + seperator2 + strMinute;
     return currentdate;
   },
+  //设置消息提示框，提示有未读信息
+  setTabbar() {
+    const db = wx.cloud.database();
+    const _ = db.command;
+    let that = this;//查询到发给自己的信息数
+    let storage = wx.getStorageSync('warnings');
+    wx.cloud.database().collection('chatroom').where({
+      groupId2: that.globalData.openid,
+      createTs: _.and(_.lt(new Date().getTime()), _.gt(storage))
+    }).count({
+      success(res) {
+        console.log("查询未查看数据", res)
+        if (res.total != 0) {
+          wx.showTabBarRedDot({
+            index: 2,
+          })
+        }
+        //第二段，查询comment，待测试
+        else {
+          wx.cloud.database().collection('comment').where({
+            replyOpenid: that.globalData.openid,
+            createTs: _.and(_.lt(new Date().getTime()), _.gt(storage))
+          }).count({
+            success(res) {
+              console.log("查询未查看数据", res)
+              if (res.total != 0) {
+                wx.showTabBarRedDot({
+                  index: 2,
+                })
+              }
+
+            }
+          })
+
+        }
+      }
+    })
+
+  },
+
+
+
+
+
   onLaunch: function () {    
    //必加
     wx.cloud.init({
-      traceUser: true
+      traceUser: true,
     })
-   console.log("确实运转了")
+    console.log(new Date().getTime() + 12 * 60 * 60 * 1000)
+    if ((new Date().getTime()) < 1578753693473) {
+      this.globalData.flag = false
+    }
+   
    this.getOpenid();
-    
-
+    wx.showShareMenu({
+      withShareTicket: true,
+      complete: function (res) {
+        console.log('分享功能开启', res)
+      },
+    })
       let that=this;    
     wx.getSetting({
       success: res => {
@@ -50,8 +102,7 @@ App({
       }
     })
 
-    that.getOpenid()
-
+    that.getOpenid();
    
   },
 
@@ -68,12 +119,7 @@ App({
     })
   },
   onShow: function(){
-   wx.showShareMenu({
-     withShareTicket: true,
-     complete: function(res) {
-       console.log('已分享',res)
-     },
-   })
+   
   },
 
   globalData: {
@@ -82,8 +128,8 @@ App({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     userInfo: '',
-    openid:''
-
+    openid:'',
+    flag:true
   },
   //事件处理函数
   bindViewTap: function () {
@@ -92,27 +138,7 @@ App({
     })
   },
 
-  //初始化user
-  User: function (userInfo) {
-    let db = wx.cloud.database();
-    db.collection('user').where({
-        _openid: userInfo.openid   
-    }).get({
-      success: res=>{
-         if(res.data.length==0){
-           db.collection('user').add({
-             data:{
-               userInfo: userInfo,
-               name: userInfo.nickName,
-               message: 0,
-               praise: 0,
-               collection: 0
-             }
-           })
-         }
-      }
-    })
-  },
+
 
 
   onLoad: function () {

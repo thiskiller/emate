@@ -1,27 +1,30 @@
 <!--pages/onload/onload.wxml-->
-<textarea class="desc" placeholder="请输入商品信息..." bindinput="getInput" value="{{txt}}"></textarea>
-<view class="imageRootAll">
-  <block wx:for="{{imgList}}" wx:key="index">
-
-    <view class="imgItem">
-      <image class="img" src='{{item}}' mode='aspectFill'></image>
-      <image class="closeImg" bindtap="DeleteImg" src="../../pages/images/close.png" data-index='{{index}}'></image>
+<view>
+  <textarea class="desc" placeholder="请输入商品信息..." bindinput="getInput" value="{{txt}}"></textarea>
+  <view class="imageRootAll">
+    <block wx:for="{{imgList}}" wx:key="index">
+      <view class="imgItem">
+        <image class="img" src='{{item}}' mode='aspectFill'></image>
+        <image class="closeImg" bindtap="DeleteImg" src="../../pages/images/close.png" data-index='{{index}}'></image>
+      </view>
+    </block>
+    <view wx:if='{{imgList.length<9}}' class='imgItem' bindtap="ChooseImage">
+      <image class="photo" src="../../pages/images/photo.png"></image>
     </view>
-
-  </block>
-  <view wx:if='{{imgList.length<8}}' class='imgItem' bindtap="ChooseImage">
-    <image class="photo" src="../../pages/images/photo.png"></image>
   </view>
+    <picker bindchange="bindMainPickerChange" value="{{index}}" range="{{mainClasses}}" class="picker">
+      <view>发布类型：<text class="classes">{{mainClasses[mainIndex]}}</text></view>
+    </picker>
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{classes}}" class="picker">
+      <view>商品类型：<text class="classes">{{classes[classIndex]}}</text></view>
+    </picker>
+    <view style="display:flex;" wx:if='{{tag}}'>
+      <view style="margin-top:15px">物品售价：</view>
+      <input style='height:30px;border:1px black solid;margin-top:10px;border-radius:3px' bindinput="moneyChange" value="{{money}}" placeholder="请输入物品售价..."></input>
+    </view>
+    <view style="display:flex;">
+      <view style="margin-top:15px">交易地点：</view>
+      <input style='height:30px;border:1px black solid;margin:20rpx 0;'  bindinput="placeChange" value="{{place}}" placeholder="请输入交易地点..."></input>
+    </view>
+    <button  style='background:#61ada3'type="background:#647f96" bindgetuserinfo="getUserInfo" open-type="getUserInfo" >发布信息</button>
 </view>
-  <picker bindchange="bindPickerChange" value="{{index}}" range="{{classes}}">
-    <view>商品类型：<text class="classes">{{classes[classIndex]}}</text></view>
-  </picker>
-  <view style="display:flex;">
-    <view style="margin-top:15px">物品售价：</view>
-    <input style='height:30px;border:1px black solid;margin-top:10px;border-radius:3px' bindinput="moneyChange" value="{{money}}" placeholder="请输入物品售价..."></input>
-  </view>
-  <view style="display:flex;">
-    <view style="margin-top:15px">交易地点：</view>
-    <input style='height:30px;border:1px black solid;margin:20rpx 0;'  bindinput="placeChange" value="{{place}}" placeholder="请输入交易地点..."></input>
-  </view>
-  <button style='background:#61ada3'type="background:#647f96" bindgetuserinfo="getUserInfo" open-type="getUserInfo" >发布信息</button>

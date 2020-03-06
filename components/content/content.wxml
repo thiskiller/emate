@@ -1,0 +1,52 @@
+<view class="searchContainer" >
+    <input class="search" bindinput="search" bindconfirm="confirmSearch" cursor-spacing="20" placeholder-style="margin-left:5px;font-size:10px" placeholder="请输入搜索商品信息......"></input>
+    <!-- <button class="confirmSearch" bindtap="confirmSearch"> 搜索</button> -->
+</view>
+<block class='content' wx:for="{{dataList}}" wx:key="index">
+  <view class="itemContainer" wx:if = '{{item.place!=""}}'>    
+    <view class="itemRoot">
+      <view style="display: flex">
+        <view class="userImage">
+          <image data-openid="{{item._openid}}" bindtap="getUser" class="userImage1" src='{{item.userInfo.avatarUrl}}'></image>
+        </view>
+        <view class="userName_time_school">
+          <view class="name-views">
+            <view class="userName">{{item.userInfo.nickName}}</view>
+            <view class="views">浏览量{{item.views}}</view>
+          </view>
+          <view class="detail"> 
+            <text class="time">{{item.createTime}}</text>
+            <text class="school">交易地点：{{item.place}}</text>
+          </view>
+        </view>
+      </view>
+      <view wx:if='{{item._openid==openid}}'>
+        <image data-item="{{item}}" class="delete" bindtap="delete" data-index='{{index}}' src="/pages/images/delete.png"></image>
+      </view>
+    </view>
+    <view class="message">
+      <view class="txt">
+        <view style="margin-bottom:6px">
+          <text class="money">售价：￥{{item.money==''?0:item.money}}</text>
+        </view>
+        <text class="desc" selectable="true">{{item.desc}}</text>
+      </view>
+      <view class="imgRoot">
+        <block class="imgList" wx:if='{{item.fileIDs.length<=2}}' wx:for="{{item.fileIDs}}" wx:for-item="itemImg" wx:key="{{index}}">
+          <image class="img" src='{{itemImg}}' style="width: 260rpx;height: 300rpx;" mode="aspectFill" data-img='{{[itemImg,item.fileIDs]}}' bindtap="previewImg"  data-id='{{item._id}}'></image>
+        </block>
+        <block  wx:if='{{item.fileIDs.length>2}}' class="imgList" wx:for="{{item.fileIDs}}" wx:for-item="itemImg" wx:key="index">
+          <image class="img" src='{{itemImg}}' style="width: 225rpx;height: 250rpx;" mode="aspectFill" data-img='{{[itemImg,item.fileIDs]}}' bindtap="previewImg" ></image>
+        </block>
+      </view>
+    </view>
+  <view class="doWell_comment">   
+      <image  class="comment1" bindtap="chat"  data-id='{{item._id}}'  data-item="{{item}}" src='/pages/images/sixin.png'></image>
+      <image  class="comment2" bindtap="comment"  data-id='{{item._id}}'   data-item="{{item}}" src='/pages/images/message.png'></image>
+      <text class="count" wx:if='{{item.count!=0}}'>{{item.count}}</text>
+      <text class="count" wx:else></text>
+      <image class="comment3"  mode="aspectFill" bindtap="doWell" data-index="{{item._id}}"  src="{{!list_doWell[item._id]?'/pages/images/doWell.png':'/pages/images/doWellChange.png'}}"></image>
+  </view>
+  </view>
+</block>
+<view wx:if='{{dataList.length==0}}' style="margin:30rpx;font-size:16pt">暂无更多信息</view>

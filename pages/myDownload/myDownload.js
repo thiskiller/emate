@@ -41,17 +41,17 @@ Page({
       title: '提示',
       content: '确认删除该文件', 
     success(e){
+      db.collection('pull').doc(id).remove();
       if(e.confirm){
         wx.showLoading({
           title: '正在更改',
         })
-       db.collection('pull').doc(id).remove(),
-       that.init(),
        wx.hideLoading()
        wx.showToast({
          title: '删除成功',
          icon: 'none'
        })
+        that.init();
       }
     }
   })
@@ -74,7 +74,7 @@ Page({
           wx.cloud.database().collection('timeline').add({
             data: {
               fileIDs: item.fileIDs,
-              data: item.data,
+              table: item.table,
               createTime: app.getNowFormatDate(),
               desc: item.desc,
               images: item.images,
@@ -83,16 +83,16 @@ Page({
               nickName: item.nickName,
               money: item.money,
               classes: item.classes,
-              views: 0,
-              nums: 0
+              views: 1,
+              count: 0
             }
-          })
-          that.init();
+          }) 
           wx.hideLoading(),
               wx.showToast({
-            title: '删除成功',
+            title: '上架成功',
             icon: 'none'
           })
+          that.init();
         }
       }
     })

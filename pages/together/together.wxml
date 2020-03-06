@@ -1,0 +1,7 @@
+<!--pages/zero/zero.wxml-->
+<content dataList = '{{dataList}}'
+         list_doWell = '{{list_doWell}}'
+         openid = '{{openid}}'
+         table = '{{table}}'
+></content>
+ <view class="attention">{{attentionText}}</view>

@@ -1,4 +1,5 @@
 // pages/login/login.js
+const app = getApp()
 Page({
 
   /**
@@ -23,8 +24,37 @@ Page({
 
   getUserInfo(e) {
     let that = this;
+    const db = wx.cloud.database();
+    const _ = db.command;//当是新用户是将其信息插入到user中
+    
     wx.getUserInfo({
-      success(res) {
+      success(res1) {
+        app.globalData.userInfo = res1.userInfo;
+        wx.cloud.callFunction({
+          name:'getopenid',
+          success(e){
+            let openid=e.result.openid;
+            db.collection('user').where({
+              _openid:openid
+            }).get({
+              success(res){
+                if(res.data.length==0){
+                  db.collection('user').add({
+                    data: {
+                      userInfo: res1.userInfo,
+                      createTime: app.getNowFormatDate(),
+                      time: new Date().getTime()
+
+                    },
+                    success(e) {
+                      console.log(e)
+                    }
+                  })
+                }
+              }
+            })
+          }
+        })
         wx.switchTab({
           url: '/pages/index/index',
         })

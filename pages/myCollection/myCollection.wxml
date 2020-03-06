@@ -1,7 +1,12 @@
 <!--pages/collection/collection.wxml-->
-<block class="container" wx:for="{{dataList}}"  wx:key='{{index}}'>
-  <view class="itemContainer" style="display:flex" bindtap="comment" data-item='{{item}}'>
-    <image src='{{item.userInfo.avatarUrl}}' class="image" style="height:100rpx;width:100rpx;margin:10rpx"></image>
-    <text style="height:100rpx;width:600rpx;font-family:KaiTi;font-size:10pt">{{item.desc}}</text>
+<view class="container" wx:for="{{dataList}}"  wx:key='index'>
+  <view class="itemContainer" style="display:flex" bindtap="comment" data-item='{{item}}' wx:if = '{{item.place!=""}}'>
+    <image mode="aspectFill" src='{{item.fileIDs[0]}}' class="image" style="height:100rpx;width:100rpx;margin:10rpx"></image>
+    <view style="display:flex; flex-direction: column">
+      <view style="margin: 6px;">
+        <text style="color: #647f9b;font-weight: 600;padding: 5rpx;margin: 3px 3px 0 3px;border-radius: 3px;font-size:12px;margin-left:0rpx">￥{{item.money==''?0:item.money}}</text>
+      </view>
+      <text style="overflow:hidden;text-overflow:ellipsis;height:36rpx;width:600rpx;font-family:KaiTi;font-size:10pt;margin-left:5px;">{{item.desc}}</text>
+    </view>
   </view>
-</block>
+</view>

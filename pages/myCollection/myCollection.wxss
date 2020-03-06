@@ -6,7 +6,7 @@
 .itemContainer{
   background: #fff;
   margin: 10rpx 10rpx 10rpx 10rpx;
-  border-top: 1px solid rgb(170, 165, 165)
+  border-top: 1px solid rgb(170, 165, 165);
 }
 
 .image{

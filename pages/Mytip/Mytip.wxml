@@ -1,0 +1,2 @@
+<!--pages/Mytip/Mytip.wxml-->
+<web-view src="http://mp.weixin.qq.com/s?__biz=MzI0NzQwNTQ2OA==&mid=2247483658&idx=1&sn=f47c3659e2c3d67f8c16b1fd670d8994&chksm=e9b1cff9dec646effba1290aa3997121a19a33dc8f419fc85ca4d941bb0110cf867586a2f9f6&token=553182297&lang=zh_CN#rd"></web-view>

@@ -1,18 +1,29 @@
-<view class="fonter" bindtap="change">
-  <button class="message" style="border-bottom:{{tag?'2px #61ada3 solid':''}}">消息</button>
-  <button class="comment" style="border-bottom:{{!tag?'2px #61ada3 solid':''}}">评论</button>
+<view class="fonter" >
+  <button class="message" bindtap="change1" style="border-bottom:{{tag?'2px #61ada3 solid':''}}">消息</button>
+  <button class="comment" bindtap="change2" style="border-bottom:{{!tag?'2px #61ada3 solid':''}}">评论</button>
 </view>
 <scroll-view class="container">
-  <view wx:for='{{chats}}' wx:key='{{index}}' >
+  <view wx:if='{{tag}}' wx:for='{{chats}}' wx:key='index' >
       <view class='itemContainer' bindtap="chat" data-item="{{item}}">
         <image class="imageUrl" src="{{item.userInfo.avatarUrl}}"></image>
           <view style="display:flex;flex-direction:column">
-            <view >
+            <view>
               <text class="name-time">{{item.userInfo.nickName}}</text>
-              <text class="name-time">{{context[index].createTime}}</text>
-              <text class="name-time" style="margin-left:10px;color:red">{{time[index]}}</text>
+              <text class="name-time1">{{context[item._openid].createTime}}</text>
             </view>
-            <text class="text">{{context[index].context}}</text>
+            <text class="text">{{context[item._openid].context}}</text>
+          </view>
+      </view>
+  </view>
+  <view wx:if='{{!tag}}' wx:for='{{comments}}' wx:key='index' >
+      <view class='itemContainer' bindtap="comment" data-item="{{item.item}}">
+        <image class="imageUrl" src="{{item.userInfo.avatarUrl}}"></image>
+          <view style="display:flex;flex-direction:column">
+            <view >
+              <text class="name-time">{{item.userInfo.nickName}} 评论了你</text>
+              <text class="name-time" style="margin-left:10px;font-size:6pt;color:red">{{item.time}}</text>
+            </view>
+            <text class="text">{{item.context}}</text>
           </view>
       </view>
   </view>

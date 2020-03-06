@@ -10,8 +10,13 @@ Page({
     place:'',
     money: '',
     desc:'',
-    classes:['书籍','生活用品','百货','电子产品','衣物'],
-    classIndex: 0
+    classes: ['生活用品','学习用品','电子产品','其它'],
+    mainClasses: ['二手交易', '失物招领', '免费赠送', '商品拼团'],
+    mainIndex: 0,
+    classIndex: 0,
+    table: 'timeline',
+    tag : true,
+    flag: app.globalData.flag
   },
   getInput(e){
     console.log('输入的内容',e.detail.value)
@@ -74,11 +79,46 @@ DeleteImg(e){
       money: e.detail.value
     })
   },
-bindPickerChange(e){
+
+
+bindPickerChange(e){//发布类型分类
   console.log(e)
   this.setData({
   classIndex: e.detail.value
 })
+},
+
+
+bindMainPickerChange(e){
+  console.log(e)
+  this.setData({
+  mainIndex: e.detail.value
+})
+if(e.detail.value== 0){
+  this.setData({
+    tag: true,
+    table: 'timeline'
+  })
+}
+else if(e.detail.value==1){
+  this.setData({
+    tag: false,
+    table: 'lost'
+  })
+}
+else if(e.detail.value==2){
+  this.setData({
+    tag: false,
+    table: 'zero'
+  })
+}
+else if (e.detail.value == 3) {
+  this.setData({
+    tag: true,
+    table: 'together'
+  })
+}
+
 },
 //上传数据
 publish()  {
@@ -86,23 +126,56 @@ publish()  {
   let desc = this.data.desc
   let imgList = this.data.imgList
   // 内容过少
-  if(! desc || desc.length < 6){
+  if(! desc || desc.length < 4){
     wx.showToast({
-      title: '内容大于6个字',
+      title: '内容大于4个字',
       icon:'none',
       content: ''
     })
     return;
   }
-  //图片过少
-  // if(!imgList || imgList.length <1) {
-  //   wx.showToast({
-  //     title: '请选择图片',
-  //     icon: 'none',
-  //     content: '',
-  //   })
-  //   return;
-  // }
+  //地址未选
+  if (!that.data.place) {
+    wx.showToast({
+      title: '请选择交易地点',
+      icon: 'none',
+      content: ''
+    })
+    return;
+  }
+  //交易金额未选
+
+  
+  if (!that.data.money&&that.data.tag) {
+    wx.showToast({
+      title: '请选择出售金额',
+      icon: 'none',
+      content: ''
+    })
+    return;
+  }
+  //金额非数字
+    var  regPos = /^\d+(\.\d+)?$/; //非负浮点数
+    var  regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+
+  if (that.data.tag&&!regPos.test(that.data.money) &&!regNeg.test(that.data.money)) {
+          wx.showToast({
+            title: '请输入正确售价格式',
+            icon: 'none',
+            content: ''
+          })
+          console.log('售价格式有问题')
+          return;
+         }
+  // 图片过少
+  if(!imgList || imgList.length <1) {
+    wx.showToast({
+      title: '请选择图片',
+      icon: 'none',
+      content: '',
+    })
+    return;
+  }
   //选校未选择
   if(that.data.schoolIndex==0){
     wx.showToast({
@@ -116,31 +189,45 @@ publish()  {
     title: '发布中',
   })
 
-  const promiserArr = [];
-  for (let i = 0;i <this.data.imgList.length; i++){
-    let filePath = this.data.imgList[i]
-    let suffix = /\.[^\.]+$/.exec(filePath)[0];
-    promiserArr.push(new Promise((reslove, reject) =>{
-      wx.cloud.uploadFile({
-        cloudPath: new Date().getTime() +suffix,
-        filePath: filePath,
-      }).then(res =>{
-        console.log('上传结果', res.fileID)
-        this.setData({
-          fileIDs: this.data.fileIDs.concat(res.fileID)
+  let promiseArr = []
+  let fileIds = []
+  // 图片上传
+  for (let i = 0, len = this.data.imgList.length; i < len; i++) {
+    let p = new Promise((resolve, reject) => {
+      let item = this.data.imgList[i]
+      if (item.indexOf("cloud:") != -1) {
+        fileIds = fileIds.concat(item)
+        resolve()
+      } else {
+        // 文件扩展名
+        let suffix = /\.\w+$/.exec(item)[0]
+        wx.cloud.uploadFile({
+          cloudPath: 'blog/' + Date.now() + '-' + Math.random() * 1000000 + suffix,
+          filePath: item,
+          success: (res) => {
+            console.log(res.fileID)
+            fileIds = fileIds.concat(res.fileID)
+            resolve()
+          },
+          fail: (err) => {
+            console.error(err)
+            reject()
+          }
         })
-        reslove()
-      }).catch(error =>{
-        console.log("上传失败",error)
-      })
-    }))
+      }
+    })
+    promiseArr.push(p)
   }
 
     let db =wx.cloud.database()
-    Promise.all(promiserArr).then(res =>{
-      db.collection('timeline').add({
+  Promise.all(promiseArr).then(res =>{
+      this.setData({
+        fileIDs: fileIds
+      })
+      db.collection("timeline").add({
         data: {
           fileIDs: this.data.fileIDs,
+          table: that.data.table,
           createTime: app.getNowFormatDate(),
           desc: this.data.desc,
           images:this.data.imgList,
@@ -148,7 +235,9 @@ publish()  {
           userInfo:this.data.userInfo,
           nickName: this.data.userInfo.nickName,
           money: this.data.money,
-          classes:this.data.classes[this.data.classIndex]
+          classes:this.data.classes[this.data.classIndex],
+          count:0,
+          views:1,
         },
       success: res=>{
       wx.hideLoading(),
@@ -164,8 +253,6 @@ publish()  {
         place: '',
         money: '',
       })
-      
-      
     },
     fail: err =>{
       wx.hideLoading(),
@@ -174,7 +261,7 @@ publish()  {
         title: '网络不给力'
       })
       console.log('发布失败',err)
-    }
+    },
    })
   }
 )},
@@ -211,7 +298,7 @@ getUserInfo(e){
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+   
   },
 
   /**

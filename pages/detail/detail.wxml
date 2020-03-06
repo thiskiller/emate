@@ -1,1 +1,11 @@
 <!--pages/detail/detail.wxml-->
+<view style="font-size:12pt;margin:10rpx">1.版本1.0.0，发布于2019年12月27日</view>
+<view style="font-size:12pt;margin:10rpx">2.版本1.0.1，发布于2019年12月31日</view>
+<view style="font-size:10pt;margin:10rpx;margin-left:14rpx">2.1.修复了无法私信漏洞</view>
+<view style="font-size:10pt;margin:10rpx;margin-left:14rpx">2.2.修复了浏览量无法增加漏洞</view>
+<view style="font-size:12pt;margin:10rpx">3.版本1.0.2，发布于2020年1月10日</view>
+<view style="font-size:10pt;margin:10rpx;margin-left:14rpx">3.1.新增了消息提示功能</view>
+<view style="font-size:10pt;margin:10rpx;margin-left:14rpx">3.2.新增了个人信息展示功能</view>
+<view style="font-size:10pt;margin:10rpx;margin-left:14rpx">3.3.新增了使用技巧模块</view>
+<view style="font-size:12pt;margin:10rpx">4.当前版本为1.0.3，发布于2020年1月13日</view>
+<view style="font-size:10pt;margin:10rpx;margin-left:14rpx">4.1.修复了评论框显示异常</view>

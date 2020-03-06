@@ -53,10 +53,10 @@ Page({
         groupId1: that.data.replyOpenid,
         groupId2: that.data.openid
       }
-    ])).orderBy('createTime', 'asc').get({
+    ])).orderBy('createTs', 'desc').limit(10).get({
       success(res){
         that.setData({
-          chats: res.data
+          chats: res.data.reverse()
         })
       }
     })
@@ -106,9 +106,10 @@ Page({
         that.setData({
           context:''
         })
-        wx.showToast({
-          title: '发送成功',
-        })
+        //未避免用户反感，特去除
+        // wx.showToast({
+        //   title: '发送成功',
+        // })
         console.log(e)
       }
     })
@@ -138,6 +139,30 @@ Page({
     })
   },
 
+  onScrollToUpper: function () {
+    wx.showLoading({
+      title: '加载中',
+    })
+    let that = this;
+    chatroom.where(_.or([
+      {
+        groupId1: that.data.openid,
+        groupId2: that.data.replyOpenid
+      },
+      {
+        groupId1: that.data.replyOpenid,
+        groupId2: that.data.openid
+      }
+    ])).orderBy('createTs', 'desc').skip(that.data.chats.length).limit(10).get({
+      success(res) {
+        console.log(res)
+        that.setData({
+          chats: res.data.reverse().concat(that.data.chats)
+        })
+      }
+    })
+    wx.hideLoading()
+  },
   /**
    * 生命周期函数--监听页面显示
    */
@@ -156,28 +181,13 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function (e) {
-    let that = this;
-    console.log('页面卸载', new Date().getTime())
-    wx.getStorage({
-      key: 'message',
-      success: function (res) {
-        let obj = res.data;
-        obj[that.data.replyOpenid] = new Date().getTime();
-        //随即加上本次点击 存储到本地
-        wx.setStorage({
-          key: 'message',
-          data: obj,
-        })
-      },
-    })
+   
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-
-  },
+  
 
   /**
    * 页面上拉触底事件的处理函数

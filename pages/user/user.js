@@ -8,6 +8,12 @@ Page({
   data: {
     idList: '',
     dataList: [],
+    user:'',
+    time:'',
+    school: '',
+    QQ: '',
+    weixin: '',
+    display: '',
   },
 
   /**
@@ -17,10 +23,25 @@ Page({
     let that = this;
     wx.cloud.database().collection('timeline').where({
       _openid: options.openid
-    }).get({
+    }).orderBy('createTime', 'desc').get({
       success(res) {
         that.setData({
-          dataList: that.data.dataList.concat(res.data[0])
+          dataList: res.data
+        })
+      }
+    })
+    
+    wx.cloud.database().collection('user').where({
+      _openid: options.openid
+    }).get({
+      success(e) {
+        that.setData({
+          user: e.data[0],
+          time: ((new Date().getTime() - e.data[0].time) / (1000 * 60 * 60 * 24)).toFixed(0),
+          school: e.data[0].school,
+          QQ: e.data[0].QQ,
+          weixin: e.data[0].weixin,
+          display: e.data[0].display,
         })
       }
     })

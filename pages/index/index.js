@@ -3,6 +3,7 @@
 const app = getApp();
 const db= wx.cloud.database();
 const _=db.command;
+const that  = this;
 Page({
   data:{
     dataList: [],
@@ -14,31 +15,23 @@ Page({
     scrollLeft:0,
     openid: '',
     classes:'',
-    attentionText: '下拉更新',
+    flag:app.globalData.flag,
+    attentionText: '上拉更新',
     count: {},
     tabs:[{
       name:'全部商品'
     },
     {
-      name:'书籍'
-    },
-    {
       name:'生活用品'
     },
     {
-      name:'百货'
+      name:'学习用品'
     }, 
     {
       name:'电子产品'
     },
     {
-      name:'衣物'
-    },
-    {
-      name:'瓷器'
-    },
-    {
-      name:'厨具'
+      name:'其它'
     },
     ]
   },
@@ -51,7 +44,20 @@ Page({
   },
 //点赞功能，改变图片颜色
 doWell: function(e){
+  wx.getSetting({
+    success: res => {
+      if (!res.authSetting['scope.userInfo']) {
+        // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+        wx.showToast({
+          title: '您尚未登录',
+          icon: 'none'
+        })
+        return;
+      }
   console.log(e)
+  wx.showLoading({
+    title: '处理中',
+  })
   let that=this;
   let index=e.currentTarget.dataset.index;
 
@@ -62,10 +68,12 @@ doWell: function(e){
   if (!that.data.list_doWell[index]){
     db.collection('collection').add({
       data:{
-        collectionId:index
+        collectionId:index,
+        createTime: app.getNowFormatDate()
       },
       success(res){
         console.log(res,'添加收藏成功')
+        wx.hideLoading()
         wx.showToast({
           title: '收藏成功',
           icon: 'none'
@@ -74,6 +82,7 @@ doWell: function(e){
     })
   }
   else{
+    console.log(index,app.globalData.openid)
     wx.cloud.callFunction({
       name:'deleteCollection',
       data:{
@@ -82,6 +91,7 @@ doWell: function(e){
       },
     success(e){
       console.log(e)
+      wx.hideLoading()
       wx.showToast({
         title: '取消收藏',
         icon: 'none'
@@ -91,25 +101,6 @@ doWell: function(e){
       console.log(e,'失败')
     }
     })
-    // wx.cloud.callFunction({
-    //   // 要调用的云函数名称
-    //   name: 'deleteCollection',
-    //   // 传递给云函数的参数
-    //   data: {
-    //     x: 1,
-    //     y: 2,
-    //   },
-    //   success: res => {
-    //     console.log(res)
-    //     // output: res.result === 3
-    //   },
-    //   fail: err => {
-    //     // handle error
-    //   },
-    //   complete: () => {
-    //     // ...
-    //   }
-    // })
     
   }
     //从本地取出点赞信息
@@ -128,7 +119,8 @@ doWell: function(e){
       })
     },
   })
-
+    }
+  })
 },
   //获取openid
   getOpenid: function () {
@@ -148,44 +140,19 @@ doWell: function(e){
 onLoad: function() {
   this.getOpenid()
    this.init();
-  wx.getSetting({
-    success: res => {
-      if (!res.authSetting['scope.userInfo']) {
-        // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-        wx.redirectTo({
-          url: '/pages/login/login',
-        })
-      }
-    }
-  })
-  
 },
 
 init: function(){
   let that = this;
   let db = wx.cloud.database();
   if(this.data.classes==''||this.data.classes=='全部商品'){
-    db.collection('timeline').orderBy('createTime', 'desc').limit(5) //按发布视频排序
+    db.collection('timeline').orderBy('createTime', 'desc').limit(20) //按发布视频排序
       .get({
         success(res) {
           that.setData({
             dataList: res.data
           })
-
-          // for (var index = 0; index < that.data.dataList.length; index++) {
-          //   console.log(that.data.dataList[index])
-  //        that.renew()
-          // for (var item in that.data.dataList){
-            // db.collection('comment').where({
-            //   id: item._id
-            // }).count({
-            //   success(res){
-
-              // console.log(item.nickName)
-            //   }
-            // })
-          
-          // }
+          console.log('总数据',res)
         },
         fail(res) {
           console.log("请求失败", res)
@@ -195,8 +162,8 @@ init: function(){
   }
   else{
     db.collection('timeline').orderBy('createTime', 'desc').where({
-      classes: that.data.classes})
-      .limit(5) //按发布视频排序
+      classes: that.data.classes})//刚改过
+      .limit(20) //按发布视频排序
       .get({
         success(res) {
           that.setData({
@@ -222,7 +189,7 @@ init: function(){
 
   this.setData({
     list_doWell:storage,
-    attentionText:'下拉更新'
+    attentionText:'上拉更新'
   })
  
 },
@@ -235,7 +202,13 @@ init: function(){
     this.init()
   },
   onShow: function () {
-   
+    let storage = wx.getStorageSync('warnings');
+    if (!storage) {
+      wx.setStorageSync('warnings', new Date().getTime())
+    }
+    setTimeout(function () {
+      app.setTabbar()
+    }, 1000)
   },
   getUser: function(e){
     wx.navigateTo({
@@ -243,18 +216,23 @@ init: function(){
     })
   },
 
-  previewImg: function (e) {
-    let imgData = e.currentTarget.dataset.img;
-    let id = e.currentTarget.dataset.id;
+  inc(e){
+    let that = this;
     wx.cloud.callFunction({
-      name:'inc',
+      name: 'inc',
       data: {
-        id: id,
+        id: e,
       },
-      success(e){
+      success(e) {
         console.log(e)
       }
     })
+  },
+  previewImg: function (e) {
+    let imgData = e.currentTarget.dataset.img;
+    let id = e.currentTarget.dataset.id;
+    console.log(id);
+    this.inc(id)
     wx.previewImage({
       //当前显示图片
       current: imgData[0],
@@ -263,23 +241,7 @@ init: function(){
     })
   },
 
- // 更新评论数
-  // renew: function(){
-  //   let temp = ''
-  //   let that = this
-  // new Promise((resolve,reject) =>{
-  //   var length = 0;
-  //   for (var index=0; index< that.data.dataList.length;index++) {
-  //     db.collection('comment').where({
-  //       id: that.data.dataList[index]._id
-  //     }).count({
-  //       success(e) {
-  //         console.log(index,e)
-  //       }
-  //     })
-  //   }
-  // })  
-  // },
+ 
   //下拉更新
   onPullDownRefresh: function(e){
     wx.showNavigationBarLoading()
@@ -293,7 +255,7 @@ init: function(){
     let that=this;
    //分为两类 收集全部商品 收集单独类别商品
     if (this.data.classes == '' || this.data.classes == '全部商品') {
-      db.collection('timeline').orderBy('createTime', 'desc').limit(5) //按发布视频排序
+      db.collection('timeline').orderBy('createTime', 'desc').limit(20) //按发布视频排序
         .skip(that.data.dataList.length).get({
           success(res) {
             var attentionText =''
@@ -301,7 +263,7 @@ init: function(){
               attentionText = '到底啦'
             }
             else{
-              attentionText = '下拉更新'
+              attentionText = '上拉更新'
             }
             that.setData({
               attentionText: attentionText,
@@ -318,7 +280,7 @@ init: function(){
       db.collection('timeline').orderBy('createTime', 'desc').where({
         classes: that.data.classes
       }).skip(that.data.dataList.length)
-        .limit(5) //按发布视频排序
+        .limit(20) //按发布视频排序
         .get({
           success(res) {
             var attentionText = ''
@@ -326,7 +288,7 @@ init: function(){
               attentionText = '到底啦'
             }
             else {
-              attentionText = '下拉更新'
+              attentionText = '上拉更新'
             }
             that.setData({
               attentionText: attentionText,
@@ -348,113 +310,142 @@ init: function(){
     })
   },
   confirmSearch: function(e){
+    wx.getSetting({
+      success: res => {
+        if (!res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.showToast({
+            title: '您尚未登录',
+            icon: 'none'
+          })
+          return;
+        }
+    wx.showLoading({
+      title: '正在加载数据',
+    })
     let that=this;
     const db=wx.cloud.database();
     const _ = db.command;
-    db.collection("timeline").where(_.or([{
-      schoolName:db.RegExp({
-        regexp:'.*'+this.data.confirmText,
-        options:'i',
+        // console.log('搜索到的数据', e)
+        // var data = JSON.stringify(e.result.data)
+        wx.hideLoading()
+        wx.navigateTo({
+          url: '/pages/search/search?data=' + that.data.confirmText,
         })
-      },
-      {
-        desc: db.RegExp({
-          regexp: '.*' + this.data.confirmText,
-          options: 'i',
-        })
-
-      },
-      {
-        data: db.RegExp({
-          regexp: '.*' + this.data.confirmText,
-          options: 'i',
-        })
-
-      },
-      {
-        nickName: db.RegExp({
-          regexp: '.*' + this.data.confirmText,
-          options: 'i',
-        })
-
       }
-      
-    ])).orderBy('createTime', 'desc').get({
-
-      success(res){
-        var data=JSON.stringify(res.data)
-       wx.navigateTo({
-         url: '/pages/search/search?data='+data,
-       })
-      }
-    }
-    )
+    })
+   
   },
   
 //评论
   comment: function(e) {
+    wx.getSetting({
+      success: res => {
+        if (!res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+         wx.showToast({
+           title: '您尚未登录',
+           icon:'none'
+         })
+         return;
+        }
+   
+    let id = e.currentTarget.dataset.id;
+    this.inc(id)
     var item=e.currentTarget.dataset.item;
     var data = JSON.stringify(item);
     wx.navigateTo({
       url: '/pages/comment/comment?data=' + data,
     })
+      }
+    })
   },
 //聊天
   chat: function(e){
+    let that = this;
+    wx.getSetting({
+      success: res => {
+        if (!res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.showToast({
+            title: '您尚未登录',
+            icon: 'none'
+          })
+          return;
+        }
+    
+    let id = e.currentTarget.dataset.id;
+    that.inc(id)
     var item = e.currentTarget.dataset.item;
-    if(item._openid==app.globalData.openid){
+    if(item._openid==app.globalData.openid){//上传更改
       wx.showToast({
-        title: '暂不支持与自己聊天',
+        title: '暂不支持与本人私信',
         icon: 'none'
       })
       return;
-    }
+    }//上传更改
     var data = JSON.stringify(item);
     wx.navigateTo({
       url: '/pages/chatroom/chatroom?data=' + data,
     })
+      }
+    })
+  },
+  put: function(){
+    wx.navigateTo({
+      url: '/pages/onload/onload',
+    })
   },
 //删除该文件
-  delete: function(e){
+  delete: function (e) {
     console.log(e.currentTarget.dataset.item)
+    let index = e.currentTarget.dataset.index;
     let that = this;
     wx.showModal({
       title: '提示',
       content: '确定下架该商品？',
-    success(res){
-      if(res.confirm){
-        console.log('用户点击确定')//文件还不能完全删除
-        var item = e.currentTarget.dataset.item
-        wx.cloud.database().collection('timeline').doc(item._id).remove()//删除该内容
-          .then(console.log)
-        wx.cloud.database().collection('pull').add({
-          data:{
-            fileIDs: item.fileIDs,
-            data: item.data,
-            createTime: item.createTime,
-            desc: item.desc,
-            images: item.images,
-            place: item.place,
-            userInfo: item.userInfo,
-            nickName: item.nickName,
-            money: item.money,
-            classes: item.classes
-          }
-        })
-        that.init();
-        // wx.cloud.callFunction({
-        //   name: 'deleteMessage',
-        //   data: {
-        //    item: e.currentTarget.dataset.item
-        //   },
-        //   complete: res => {
-        //     that.init()
-        //     console.log(res)
-        //   }
-        // })
+      success(res) {
+        if (res.confirm) {
+          console.log('用户点击确定')//文件还不能完全删除
+          var item = e.currentTarget.dataset.item
+          // wx.cloud.database().collection('timeline').doc(item._id).remove()//删除该内容
+          //   .then(console.log)
+          wx.cloud.callFunction({
+            name: 'deleteItem',
+            data: {
+              id: item._id
+            },
+            success(e) {
+              that.data.dataList.splice(index, 1);//1的意思是只删除一个
+              that.setData({
+                dataList: that.data.dataList
+              })
+              console.log("下架成功")
+            }
+          })
+          wx.cloud.database().collection('pull').add({
+            data: {
+              fileIDs: item.fileIDs,
+              data: item.data,
+              createTime: item.createTime,
+              desc: item.desc,
+              images: item.images,
+              place: item.place,
+              userInfo: item.userInfo,
+              nickName: item.nickName,
+              money: item.money,
+              classes: item.classes
+            }
+          })
+          // that.init();
+          wx.showToast({
+            title: '下架成功',
+            image: '/pages/images/select.png'
+          })
+          
+        }
       }
-    }
-  })
+    })
 
   }
 

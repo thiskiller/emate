@@ -1,6 +1,6 @@
 .container{
   background: #f5f6fa;
-  border-bottom: 1px solid rgb(170, 165, 165)
+  border-bottom: 1px solid rgb(170, 165, 165) 
 }
 .itemContainer{
   background: #fff;
@@ -11,3 +11,4 @@
 .image{
   border-radius: 10rpx;
 }
+

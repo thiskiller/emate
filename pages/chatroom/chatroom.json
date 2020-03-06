@@ -1,4 +1,5 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "商品聊天室"
+  "navigationBarTitleText": "商品聊天室",
+  "enablePullDownRefresh": true
 }

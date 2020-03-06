@@ -1,6 +1,6 @@
 <!--pages/myDownload/myDownload.wxml-->
-<block  wx:for="{{dataList}}" wx:key="{{index}}">
-    <view class="itemContainer">    
+<view  wx:for="{{dataList}}" wx:key="index">
+    <view class="itemContainer" wx:if = '{{item.place!=""}}'>    
       <view class="itemRoot" style="display:flex">
         <view style="display: flex">
           <view class="userImage">
@@ -12,7 +12,7 @@
             </view>
             <view class="detail"> 
               <text class="time">{{item.data}}</text>
-              <text class="school">发布于{{item.place}}</text>
+              <text class="school">交易地点：{{item.place}}</text>
             </view>
           </view>
         </view>
@@ -30,14 +30,14 @@
       </view>
       <view class="message">
         <view class="txt">
-          <view style="color:yellow;font-size:20px;margin-bottom:3px">售价：￥{{item.money}}</view>
+          <view style="color: #647f9b;font-weight: 600;margin-bottom:3px">售价：￥{{item.money==''?0:item.money}}</view>
           <text class="desc" selectable="true">{{item.desc}}</text>
         </view>
         <view class="imgRoot">
-          <block class="imgList" wx:for="{{item.fileIDs}}" wx:for-item="itemImg" wx:key="{{index}}">
+          <block class="imgList" wx:for="{{item.fileIDs}}" wx:for-item="itemImg" wx:key="index">
             <image class="img" src='{{itemImg}}' mode="aspectFill" data-img='{{[itemImg,item.fileIDs]}}' bindtap="previewImg"></image>
           </block>
         </view>
       </view>
     </view>
-  </block>
+  </view>

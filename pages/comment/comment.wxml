@@ -1,53 +1,71 @@
-<view class="itemContainer">    
-  <view class="itemRoot">
-    <view class="userImage">
-      <image class="userImage1" src='{{host.userInfo.avatarUrl}}'></image>
-    </view>
-    <view class="userName_time_school">
-        <view>
-          <view class="userName">{{host.userInfo.nickName}}</view>
+<view style="width:100%;height:100vh;background: #f5f6fa">
+  <view class="container">
+    <view class="itemContainer">    
+      <view class="itemRoot">
+        <view class="userImage">
+          <image class="userImage1" data-openid="{{host._openid}}" bindtap="getUser" src='{{host.userInfo.avatarUrl}}'></image>
         </view>
-        <view class="detail"> 
-          <text class="time">{{host.data}}</text>
-          <text class="school">发布于{{host.schoolName}}</text>
+        <view class="userName_time_school">
+            <view>
+              <view class="userName">{{host.userInfo.nickName}}</view>
+            </view>
+            <view class="detail"> 
+              <text class="time">{{host.createTime}}</text>
+              <text class="school">交易地点：{{host.place}}</text>
+            </view>
         </view>
+      </view>
+      <view class="message">
+        <view class="txt">
+          <view style="margin-bottom:6px">
+            <text class="money">售价：￥{{host.money==''?0:host.money}}</text>
+          </view>
+          <text class="desc" selectable="true">{{host.desc}}</text>
+        </view>
+        <view class="imgRoot">
+          <block class="imgList" wx:if='{{host.fileIDs.length<=2}}' wx:for="{{host.fileIDs}}" wx:for-item="itemImg" wx:key="index">
+            <image class="img" src='{{itemImg}}' style="width: 260rpx;height: 300rpx;" mode="aspectFill" data-img='{{[itemImg,item.fileIDs]}}' bindtap="previewImg"  data-id='{{item._id}}'></image>
+          </block>
+          <block  wx:if='{{item.fileIDs.length>2}}' class="imgList" wx:for="{{item.fileIDs}}" wx:for-item="itemImg" wx:key="index">
+            <image class="img" src='{{itemImg}}' style="width: 225rpx;height: 250rpx;" mode="aspectFill" data-img='{{[itemImg,item.fileIDs]}}' bindtap="previewImg" ></image>
+          </block>
+        </view>
+      </view>
+      <view class="doWell_comment">   
+          <image  class="comment1" bindtap="chat"   data-host="{{host}}"  data-id="{{host._id}}" src='/pages/images/sixin.png'></image>
+          <image  class="comment2" bindtap="comment"   data-host="{{host}}" src='/pages/images/message.png'></image>
+          <text class="count" wx:if='{{host.count!=0}}'>{{host.count}}</text>
+          <text class="count" wx:else></text>
+          <image class="comment3"  mode="aspectFill" bindtap="doWell" data-index="{{host._id}}"  src="{{!list_doWell[host._id]?'/pages/images/doWell.png':'/pages/images/doWellChange.png'}}"></image>
+      </view>
     </view>
-  </view>
-  <view class="message">
-    <view class="txt">
-      <text class="desc" selectable="true">{{host.desc}}</text>
+    <text style="font-size:17px;margin:10px;color:#647f9b">最新评论：</text>
+    <block  calss='comment' wx:for='{{commentList}}' wx:key='index' >
+      <view class="item" bindlongpress="longtap" data-openid="{{item._openid}}" data-id="{{item._id}}" data-index='{{index}}'>
+        <view class='info'>
+          <view>
+            <image class="userImage2" src="{{item.avatarUrl}}"></image>
+            <text class='name' style="font-size:14px">{{item.name}}</text>
+          </view>
+          <view class='reply' style='margin-right:100rpx' bindtap="changeHost" data-host="{{item}}">回复</view>
+        </view>
+        <view class="text">
+          <view>
+          <text wx:if="{{!item.tag}}" style="color: #61ada3;font-size:13px">@{{item.replyName}}</text>
+          <text style="line-height: 22px; font-size:12px" >{{item.context}}</text>   
+          </view>
+          <view class='time1'>{{item.time}}</view>
+        </view>
+          <text  style="border-bottom:1px solid #fff;display:flex; margin:0 5px;margin-top:14px;"></text>
+      </view>
+    </block>
+    <!-- 位置无法调和 -->
+    <view style="height:90rpx;">
     </view>
-    <view class="imgRoot">
-      <block class="imgList" wx:for="{{host.fileIDs}}" wx:for-item="itemImg" wx:key="{{index}}">
-        <image class="img" src='{{itemImg}}' mode="aspectFill" data-img='{{[itemImg,host.fileIDs]}}' bindtap="previewImg"></image>
-      </block>
-    </view>
-  </view>
-  <view class="doWell_comment">   
-        <image  class="comment1" bindtap=""   data-item="{{host}}" src='/pages/images/sixin.png'></image>
-        <image  class="comment2" bindtap="comment"   data-item="{{host}}" src='/pages/images/message.png'></image>
-        <image class="comment3"  mode="aspectFill" bindtap="doWell" data-index="{{host._id}}"  src="{{!list_doWell[host._id]?'/pages/images/doWell.png':'/pages/images/doWellChange.png'}}"></image>
+  </view> 
+  <view class='ask'>
+      <input class='input' type='text' placeholder='回复@{{replyName}}' bindinput='replyInp' value='{{inputTxt}}'></input>
+      <button  class='button' bindtap='addComment'>评论</button>
   </view>
 </view>
-<text style="font-size:15px;margin:5px;color:#647f9b">最新评论：</text>
-<block  calss='comment' wx:for='{{commentList}}' wx:key='{{index}}' >
-  <view class='info'>
-    <image class="userImage2" src="{{item.avatarUrl}}"></image>
-    <text class='name' style="font-size:14px">{{item.name}}</text>
-    <view class='reply' style='margin-left:200px' bindtap="changeHost" data-host="{{item}}">回复</view>
-  </view>
-  <view class="text">
-    <view>
-    <text wx:if="{{!item.tag}}" style="color:blue">@{{item.replyName}}</text>
-    <text style="line-height: 22px; font-size:12px" >{{item.context}}</text>   
-    </view>
-    <view class='time1'>{{item.time}}</view>
-  </view>
-    <text  style="border-bottom:1px solid #647f9b;display:flex; margin:0 5px;margin-top:14px;"></text>
-</block>
-<view class='ask'>
-  <block >
-    <input class='input' type='text' placeholder='回复@{{replyName}}' bindinput='replyInp' value='{{inputTxt}}' focus='{{focus}}'></input>
-    <button class='button' bindtap='addComment'>评论</button>
-  </block>
-</view>
+

@@ -17,7 +17,7 @@ Page({
     console.log(app.globalData.openid)
     wx.cloud.database().collection('timeline').where({
       _openid: app.globalData.openid
-    }).get({
+    }).orderBy('createTime', 'desc').get({
       success(res) {
         console.log(res)
         that.setData({

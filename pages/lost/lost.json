@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "content": "/components/content/content"
+  },
+  "enablePullDownRefresh": true,
+  "onReachBottom": true
+}

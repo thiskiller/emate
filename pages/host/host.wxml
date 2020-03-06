@@ -1,27 +1,51 @@
-  <view class="userInfo">
-      <image class='userImage' src='{{userInfo.avatarUrl}}'></image>
-      <view class='nickName'>{{userInfo.nickName}}</view>
+   <view class="userInfo">
+      <button  style="background:#fff" bindgetuserinfo="getUserInfo" open-type="getUserInfo">
+        <image class='userImage2' src='{{userInfo.avatarUrl?userInfo.avatarUrl:"/pages/images/DengLu.png"}}'></image>
+      </button>
+      <view class='nickName'>{{userInfo.nickName?userInfo.nickName:'点击头像登录'}}</view>
+  </view>
+  <view>
+    <image src="/pages/images/writeUser.png" bindtap="revise" class="writeUser"></image>
   </view>
   <view class='detail'>
     <view class="collection" bindtap="handleCollection">
+      <image class="img" src='/pages/images/Mycollection.png'></image>
       <text class="text">我的收藏</text>
       <image class="image" src='/pages/images/enter.png'></image>
     </view>
-    <view class="collection" bindtap="handleUpload">
+    <view class="collection"  bindtap="handleUpload">
+      <image class="img" src='/pages/images/Myupload.png'></image>
       <text class="text">我的发布</text>
       <image class="image" src='/pages/images/enter.png'></image>
     </view>
-    <view class="collection" bindtap="handlePull">
+    <view class="collection"  bindtap="handlePull">
+      <image class="img" src='/pages/images/Mydownload.png'></image>
       <text class="text">下架商品</text>
       <image class="image" src='/pages/images/enter.png'></image>
     </view>
-    <view class="collection" bindtap="handleIdeas">
-      <text class="text">意见反馈</text>
+    <view class="collection"  bindtap="handleTip">
+      <image class="img" src='/pages/images/tip.png'></image>
+      <text class="text">使用技巧</text>
       <image class="image" src='/pages/images/enter.png'></image>
     </view>
     <view class="collection" bindtap="handleDetail">
+      <image class="img" src='/pages/images/Mydetail.png'></image>
       <text class="text">版本信息</text>
       <image class="image" src='/pages/images/enter.png'></image>
     </view>
+    <button class="collection1" open-type="feedback">
+      <!-- <image class='kefu' src="/pages/images/kefu.png">
+      </image> -->
+      <image class="img1" src='/pages/images/Myreply.png'></image>
+      <text class="kefu">意见反馈</text>
+      <image class="image" src='/pages/images/enter.png'></image>
+    </button>
+    <button class="collection1" open-type="contact">
+      <!-- <image class='kefu' src="/pages/images/kefu.png">
+      </image> -->
+      <image class="img1" src='/pages/images/Mycontact.png'></image>
+      <text class="kefu">联系管理员</text>
+      <image class="image1" src='/pages/images/enter.png'></image>
+    </button>
   </view>
    

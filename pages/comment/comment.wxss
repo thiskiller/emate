@@ -1,37 +1,15 @@
 .container{
-  margin: 0;
-  padding: 0;
   width: 100%;
-  height: 100vh;
-  background: #f5f6fa;
+
 }
 
-.searchContainer{
-  display: flex;
-  flex-direction: row;
-  height: 30px;
-  margin-top: 14px;
-  margin: 8px;
-}
-.search{
-  border: 1px solid black;
-  margin-left: 10px;
-  padding-left: 5rpx;
-  width: 70%;
-  height: 28px;
-  border-radius: 10px;
-}
-.confirmSearch{
-  text-align:center;
-  margin-top: 0px;
-  padding-top: 0rpx;
-  font-size: 26rpx;
-}
+
+
 .itemContainer{
   border-radius: 5px;
   margin: 10px 5px;
   background:#ffffff;
-  border: 1px solid #647f9b;
+
   /* position: relative; */
 }
 .itemRoot {
@@ -62,6 +40,7 @@
   color: #647f9b;
 }
 
+
 .imgRoot {
   margin-left: 10rpx;
 }
@@ -74,9 +53,7 @@
 .img {
 
   margin: 5rpx;
-  border-radius: 10px;
-  width: 225rpx;
-  height: 250rpx;
+  border-radius: 14rpx;
 }
 
 .txt{
@@ -85,6 +62,21 @@
   margin-bottom: 10rpx;
 }
 
+.money{
+  color: #647f9b;
+  font-weight: 600;
+  padding: 6rpx;
+  margin: 3px;
+  border-radius: 8px;
+  font-size:20px;
+
+}
+.desc{
+  margin: 3px;
+  margin-top: 8px;
+  direction: flex;
+  flex-wrap: wrap;
+}
 .message{
   line-height: 22px;
   display: flex;
@@ -127,8 +119,8 @@
 }
  
 .comment1{
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   margin-top: 4px;
   margin-left: 50px;
   margin-right: 90px;
@@ -136,18 +128,25 @@
 }
 
 .comment2{
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   margin-top: 4px;
-  margin-right: 90px;
+ 
+}
+.count{
+   width: 6px;
+   margin: 8px;
+   margin-left: 4px;
+   color: #b9c5cb;
+   font-size: 10pt;
+   margin-right: 90px;
 }
 
 .comment3{
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   margin-top: 4px;
 }
-
 
 /* //最下方下拉提示 */
 .attention{
@@ -161,7 +160,7 @@
 .info{
   display: flex;
   position: relative;
-  flex-direction: row;
+  justify-content: space-between;
   margin: 5px 5px;
 
 }
@@ -209,7 +208,7 @@
   border-radius: 30rpx;
   background: #f1f5fc;
   font-size: 30rpx;
-  text-align: center;
+  padding-left: 4px;
 }
  
 .button {
@@ -231,3 +230,9 @@
   
 }
 
+.item{
+  background: #fff;
+  padding: 10rpx;
+  margin-bottom: 10rpx;
+  border-radius: 10rpx;
+}
